@@ -1,6 +1,6 @@
-### Stucture
 
-# Create project repository structure
+
+# project repository structure
 
 ```
     fraud-detection-system/
