@@ -3,23 +3,29 @@
 # project repository structure
 
 ```
-    fraud-detection-system/
-    ├── docs/                    # Architecture docs, decisions
-    ├── infrastructure/          # Terraform, CloudFormation
-    ├── data-pipeline/          
-    │   ├── data-generator/      # Python simulation
-    │   ├── nifi-processors/     # NiFi configurations
-    │   └── spark-jobs/          # Spark streaming
-    ├── backend-services/
-    │   ├── api-gateway/
-    │   ├── fraud-scoring-svc/
-    │   ├── customer-svc/
-    │   ├── transaction-svc/
-    │   └── alert-svc/
-    ├── frontend/
-    │   └── customer-dashboard/  # React app
-    ├── ml-models/
-    │   └── fraud-detection/     # Python notebooks
-    └── scripts/                 # Shell scripts
+fraud-detection-system/
+├── docker-compose/
+│   ├── local/
+│   └── monitoring/
+├── services/
+│   ├── transaction-simulator/     # Python/Shell
+│   ├── data-ingestion/            # NiFi flows
+│   ├── streaming-processor/       # Spark
+│   ├── customer-service/          # Spring Boot
+│   ├── fraud-scoring-service/     # Spring Boot + ML
+│   ├── alert-service/             # Spring Boot
+│   └── api-gateway/               # Spring Cloud Gateway
+├── frontend/
+│   └── customer-dashboard/        # React
+├── ml-model/
+│   ├── notebooks/
+│   └── training/
+├── infrastructure/
+│   ├── terraform/                  # AWS IaC
+│   └── k8s/                        # K8s manifests
+└── docs/
+    ├── architecture/
+    └── api-specs/
 
 ```
+
