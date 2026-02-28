@@ -1,0 +1,83 @@
+version: "3.9"
+
+services:
+  
+  # Message Broker
+  kafka: 
+    image: apache/kafka:latest 
+    
+    container_name: fraud-kafka
+    ports: 
+      - "9092:9092"
+     
+    environment:
+    # KRaft configuration
+      KAFKA_KRAFT_MODE: "true"
+      KAFKA_PROCESS_ROLES: controller, broker
+      KAFKA_NODE_ID: 1
+      KAFKA_CONTROLLER_QUORUM_VOTERS: "0@kafka:9093"
+
+    # Networking & Listeners configuration
+      KAFKA_LISTENERS: PLAINTEXT://kafka:9092, CONTROLLER://kafka:9093
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+    
+    # Storage & Topic configuration
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_LOG_DIRS: /var/lib/kafka/data
+    
+    volumes:
+      - kafka_data:/var/lib/kafka/data
+    networks:
+      - fraud-net
+
+    
+  # Database
+  postgres: 
+    image: postgres:16
+    container_name: fraud-postgres
+    environment:
+      POSTGRES_DB: frauddb
+      POSTGRES_USER: frauduser
+      POSTGRES_PASSWORD: fraudpass
+    volumes:
+      -  postgres_data:/var/lib/postgresql/data
+    networks:
+      - fraud-net
+
+  nifi:
+    image: apache/nifi:latest
+    container_name: fraud-nifi
+    ports:
+      - "8443:8443"
+    environment:
+      SINGLE_USER_CREDENTIALS_USERNAME: admin
+      SINGLE_USER_CREDENTIALS_PASSWORD: super_secure_password_123
+      NIFI_WEB_HTTPS_PORT: 8443
+    volumes: 
+      - nifi_data:/opt/nifi/nifi-current/state
+    networks:
+      - fraud-net
+
+  spark:
+    image: apache/spark:latest
+    container_name: fraud-spark
+    ports:
+      - "8080:8080"
+    environment:
+      SPARK_MODE: master
+    networks:
+      - fraud-net
+  
+networks:
+  fraud-net:
+    driver: bridge
+
+
+volumes:
+  kafka_data: #/var/lib/kafka/data
+  postgres_data: #/var/lib/postgresql/data
+  nifi_data: #/opt/nifi/nifi-current/state
+
+
