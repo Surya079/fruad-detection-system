@@ -37,3 +37,19 @@
 
 ```
 
+## Transaction Schema (REALISTIC)
+```
+    {
+        "transaction_id": "uuid",
+        "customer_id": "string",
+        "amount": 1250.50,
+        "currency": "INR",
+        "merchant_id": "M123",
+        "merchant_category": "ECOMMERCE",
+        "transaction_type": "ONLINE",
+        "transaction_time": "2026-02-27T10:30:00Z",
+        "country": "IN",
+        "device_id": "device-abc-123"
+    }
+
+```

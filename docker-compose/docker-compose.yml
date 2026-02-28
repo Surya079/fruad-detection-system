@@ -14,7 +14,7 @@ services:
     # KRaft configuration
       KAFKA_KRAFT_MODE: "true"
       KAFKA_PROCESS_ROLES: controller, broker
-      KAFKA_NODE_ID: 1
+      KAFKA_NODE_ID: 0
       KAFKA_CONTROLLER_QUORUM_VOTERS: "0@kafka:9093"
 
     # Networking & Listeners configuration
@@ -61,8 +61,12 @@ services:
       - fraud-net
 
   spark:
-    image: apache/spark:latest
+    image: apache/spark:3.5.0
     container_name: fraud-spark
+    command: >
+      /opt/spark/bin/spark-class
+      org.apache.spark.deploy.master.Master
+
     ports:
       - "8080:8080"
     environment:
