@@ -97,7 +97,7 @@
 
 #🥇 STAGE 1 — INFRASTRUCTURE SETUP
 
-### We will design enterprise docker-compose running:
+### Enterprise docker-compose running:
 
 - Oracle XE
 
