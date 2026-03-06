@@ -1,43 +1,42 @@
-
-
 # project repository structure
 
 ```
 
     fraud-detection-platform/
-    ├── docker-compose/           # Local development setup
-    │   ├── docker-compose.yml    # All services locally
-    │   └── init-scripts/         # DB initialization
-    ├── data-simulator/           # Python transaction generator
-    │   ├── src/
-    │   ├── Dockerfile
-    │   └── requirements.txt
-    ├── ingestion/                # NiFi flows
-    │   └── nifi-templates/
-    ├── streaming/                # Spark jobs
-    │   ├── fraud-detection/
-    │   └── aggregations/
-    ├── services/                 # Spring Boot microservices
-    │   ├── customer-service/
-    │   ├── transaction-service/
-    │   ├── alert-service/
-    │   ├── fraud-scoring-service/
-    │   └── api-gateway/
-    ├── frontend/                 # React app
-    │   └── customer-dashboard/
-    ├── ml-model/                 # Python ML stuff
-    │   ├── notebooks/
-    │   └── model-serving/
-    ├── infrastructure/           # AWS deployment
-    │   ├── terraform/            # If you want to learn IaC
-    │   └── kubernetes/           # K8s manifests
-    └── scripts/                  # Shell scripts for automation
-        ├── setup-local.sh
-        └── deploy-aws.sh
+    │
+    ├── docker-compose/
+    │
+    │
+    ├── database/
+    │
+    │
+    ├── data-simulator/
+    │
+    ├── ingestion/
+    │
+    │
+    ├── streaming/
+    │
+    │
+    ├── services/
+    │
+    ├── ml-model/
+    │
+    │
+    ├── frontend/
+    │
+    ├── hadoop/
+    │
+    │
+    ├── infrastructure/
+    │
+    │
+    └── scripts/
 
 ```
 
-## Transaction Schema (REALISTIC)
+## Raw Transaction Schema
+
 ```
     {
         "transaction_id": "uuid",
@@ -53,3 +52,61 @@
     }
 
 ```
+
+# Spark submit command
+
+```
+   /opt/spark/bin/spark-submit \
+  --master spark://spark-master:7077 \
+  --conf spark.jars.ivy=/opt/spark/ivy-cache \
+  --packages org.apache.spark:spark-sql-kafka-0-10_2.13:4.1.1 \
+  /opt/spark/work-dir/read_transactions.py
+
+```
+
+# Enriched Transaction Schema
+
+```
+    {
+  "transaction_id": "uuid",
+  "customer_id": "C1234",
+  "amount": 45000,
+  "currency": "INR",
+  "merchant_category": "ECOMMERCE",
+  "country": "IN",
+  "device_id": "device-12",
+  "transaction_time": "2026-03-01T10:15:00Z",
+
+  "hour_of_day": 23,
+  "is_high_amount": true,
+  "is_night_transaction": true
+}
+```
+
+# to copy spark job in unix server path
+
+    docker cp streaming/fraud-detection/enrich_transactions.py fraud-spark-master:/opt/spark/work-dir
+
+# to run and see kafka consumer
+
+    /opt/kafka/bin/kafka-console-consumer.sh \
+
+--bootstrap-server kafka:9092 \
+ --topic transactions.enriched \
+ --from-beginning
+
+#🥇 STAGE 1 — INFRASTRUCTURE SETUP
+
+### We will design enterprise docker-compose running:
+
+- Oracle XE
+
+- Kafka
+
+- Zookeeper
+
+- Spark
+
+- Hadoop
+
+- NiFi
