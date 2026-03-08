@@ -1,0 +1,9 @@
+
+# Library	Purpose
+# cx_Oracle	Connect to Oracle DB
+# faker	Generate fake names, merchants, locations
+# dotenv	Manage configuration
+
+cx_Oracle
+faker
+python-dotenv

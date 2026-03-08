@@ -95,18 +95,82 @@
  --topic transactions.enriched \
  --from-beginning
 
-#🥇 STAGE 1 — INFRASTRUCTURE SETUP
+---
 
-### Enterprise docker-compose running:
+#🥇 STAGE 1 — INFRASTRUCTURE LAYER
+
+### Enterprise docker-compose conrainers:
 
 - Oracle XE
 
-- Kafka
-
-- Zookeeper
+- Kafka (KRaft)
 
 - Spark
+  - master
+  - worker
 
 - Hadoop
+  - namenode
+  - datanode
+  - resourcemanager
+  - nodemanager
 
 - NiFi
+
+---
+
+#🥇 STAGE 2 — DATABASE LAYER
+
+### Enterprise oracle database structure
+
+    - schema
+        - create tables
+            - RAW_TRANSACTIONS
+            - ENRICHED_TRANSACTIONS
+            - FRAUD_RESULTS
+            - SAGA_STATE
+            - LEDGER_ENTRIES
+            - AUDIT_LOG
+
+        - indexes
+            - IDX_TXN_CUSTOMER
+            - IDX_ENRICHED_TXN_TIME
+            - IDX_FRAUD_SCORE
+
+        - partitions
+            - TXN_HISTORY (WILL ADD MORE)
+
+    - triggers
+        - RAW_TXN_AUDIT
+
+    - packages
+        - SAGA_PKG
+
+    - seed_data (test)
+        - basic customer data
+
+---
+
+#🥇 STAGE 3 - DATA SIMULATOR
+
+### Transaction data simulator Ideal for development
+
+    - data_simulator
+        - src
+            - generator.py
+            - config.py
+            - model.py
+            - db_write.py
+            
+    - requirements.txt --> python packages
+    - run.sh
+    - Dockerfile
+
+#🥇 STAGE 4
+#🥇 STAGE 5
+#🥇 STAGE 6
+#🥇 STAGE 7
+#🥇 STAGE 8
+#🥇 STAGE 9
+#🥇 STAGE 10
+#🥇 STAGE 11
