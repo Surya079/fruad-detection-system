@@ -1,4 +1,5 @@
-# project repository structure
+# FRAUD DETECTION SYSTEM & BIG DATA PIPELINE
+## PROJECT STRUCTURE 
 
 ```
 
@@ -161,7 +162,7 @@
             - config.py
             - model.py
             - db_write.py
-            
+
     - requirements.txt --> python packages
     - run.sh
     - Dockerfile
