@@ -12,6 +12,7 @@ services:
       - "1521:1521"
 
     environment:
+      ORACLE_USER: system
       ORACLE_PASSWORD: oracle
 
     volumes:
