@@ -99,7 +99,7 @@
 
 ---
 
-#🥇 STAGE 1 — INFRASTRUCTURE LAYER
+# 🥇 STAGE 1 — INFRASTRUCTURE LAYER
 
 ### Enterprise docker-compose conrainers:
 
@@ -121,7 +121,7 @@
 
 ---
 
-#🥇 STAGE 2 — DATABASE LAYER
+# 🥇 STAGE 2 — DATABASE LAYER
 
 ### Enterprise oracle database structure
 
@@ -153,7 +153,7 @@
 
 ---
 
-#🥇 STAGE 3 - DATA SIMULATOR LAYER
+# 🥇 STAGE 3 - DATA SIMULATOR LAYER
 
 ### Transaction data simulator Ideal for development
 
@@ -183,13 +183,13 @@
         docker compose up simulator
     ```
 
-#🥇 STAGE 4 INGESTION LAYER 
+# 🥇 STAGE 4 INGESTION LAYER 
 
-    
-#🥇 STAGE 5
-#🥇 STAGE 6
-#🥇 STAGE 7
-#🥇 STAGE 8
-#🥇 STAGE 9
-#🥇 STAGE 10
-#🥇 STAGE 11
+
+# 🥇 STAGE 5
+# 🥇 STAGE 6
+# 🥇 STAGE 7
+# 🥇 STAGE 8
+# 🥇 STAGE 9
+# 🥇 STAGE 10
+# 🥇 STAGE 11
