@@ -153,7 +153,7 @@
 
 ---
 
-#🥇 STAGE 3 - DATA SIMULATOR
+#🥇 STAGE 3 - DATA SIMULATOR LAYER
 
 ### Transaction data simulator Ideal for development
 
@@ -165,8 +165,13 @@
             - db_write.py
 
     - requirements.txt --> python packages
+        
     - run.sh
+        - to run generstor.py
+
     - Dockerfile
+        - txn-simulator as container in docker
+
 
     ## Rebuild container:
     ```
@@ -178,7 +183,9 @@
         docker compose up simulator
     ```
 
-#🥇 STAGE 4
+#🥇 STAGE 4 INGESTION LAYER 
+
+    
 #🥇 STAGE 5
 #🥇 STAGE 6
 #🥇 STAGE 7
