@@ -280,6 +280,14 @@ services:
       - fraud-network
 
     mem_limit: 1g
+  simulator:
+    build: ../data-simulator
+    container_name: txn-simulator
+    image: data-simulator
+    depends_on:
+      - oracle-db
+    networks:
+      - fraud-network
 
 # ================================
 # NETWORK

@@ -1,36 +1,51 @@
 import uuid
 import random
 import time
-from datetime import datetime, timezone
-import requests
+from faker import Faker
+from datetime import datetime
+from db_writter import init_connection, insert_batch 
 
-# Use port 8082 (HTTP) - this goes to your processor
-NIFI_ENDPOINTS = "http://localhost:8081/transactions"
+fake = Faker()
 
-def generate_transactions():    
+BATCH_SIZE = 100
+
+
+def generate_transaction():
+
     return {
         "transaction_id": str(uuid.uuid4()),
-        "customer_id": f"C{random.randint(1000, 9999)}",
-        "amount": round(random.uniform(10, 50000),2 ),
-        "currency": "INR",
-        "merchant_id": f"M{random.randint(100, 999)}",
-        "merchant_category": random.choice(["ECOMMERCE", "ATM", "POS"]),
-        "transaction_type": random.choice(["ONLINE", "ATM", "POS"]),
-        "transaction_time": datetime.now(timezone.utc).isoformat(),
-        "country": "IN",
-        "device_id": f"device-{random.randint(1, 50)}"
+        "customer_id": f"CUST{random.randint(1000,9999)}",
+        "amount": round(random.uniform(10, 2000), 2),
+        "currency": "USD",
+        "merchant_id": f"MERCH{random.randint(100,999)}",
+        "merchant_category": random.choice(["GROCERY", "TRAVEL", "ELECTRONICS"]),
+        "transaction_type": random.choice(["ONLINE", "POS"]),
+        "transaction_time": datetime.now(),
+        "country": random.choice(["US", "UK", "IN"]),
+        "device_id": f"DEV{random.randint(10000,99999)}"
     }
 
-while True:
-    txn = generate_transactions()
-    try:
-        response = requests.post(
-            NIFI_ENDPOINTS, 
-            json=txn, 
-            timeout=5,
-            headers={'Content-Type': 'application/json'}
-        )
-        print(f"✅ Sent: {txn['transaction_id']} - Status: {response.status_code}")
-    except Exception as e:
-        print(f"❌ Error: {e}")
-    time.sleep(1)
+
+def run_generator():
+
+    init_connection()
+
+    batch = []
+
+    while True:
+
+        txn = generate_transaction()
+
+        batch.append(txn)
+
+        if len(batch) >= BATCH_SIZE:
+
+            insert_batch(batch)
+
+            batch.clear()
+
+        time.sleep(0.1)
+
+
+if __name__ == "__main__":
+    run_generator()

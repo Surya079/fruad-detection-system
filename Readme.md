@@ -1,5 +1,6 @@
 # FRAUD DETECTION SYSTEM & BIG DATA PIPELINE
-## PROJECT STRUCTURE 
+
+## PROJECT STRUCTURE
 
 ```
 
@@ -166,6 +167,16 @@
     - requirements.txt --> python packages
     - run.sh
     - Dockerfile
+
+    ## Rebuild container:
+    ```
+        docker compose build simulator
+    ```
+
+    ## Run again:
+    ```
+        docker compose up simulator
+    ```
 
 #🥇 STAGE 4
 #🥇 STAGE 5

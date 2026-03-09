@@ -4,6 +4,5 @@
 # faker	Generate fake names, merchants, locations
 # dotenv	Manage configuration
 
-cx_Oracle
+oracledb
 faker
-python-dotenv
