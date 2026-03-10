@@ -1,9 +1,9 @@
 version: "3.9"
 
 services:
-# ================================
-# ORACLE DATABASE
-# ================================
+  # ================================
+  # ORACLE DATABASE
+  # ================================
   oracle-db:
     image: gvenzl/oracle-xe:latest
     container_name: fraud-oracle
@@ -24,10 +24,9 @@ services:
 
     mem_limit: 2g
 
-
-# ================================
-# KAFKA (KRaft Mode - No Zookeeper)
-# ================================
+  # ================================
+  # KAFKA (KRaft Mode - No Zookeeper)
+  # ================================
   kafka:
     image: apache/kafka:3.7.0
     container_name: fraud-kafka
@@ -59,10 +58,9 @@ services:
 
     mem_limit: 1g
 
-
-# ================================
-# APACHE NIFI
-# ================================
+  # ================================
+  # APACHE NIFI
+  # ================================
   nifi:
     image: apache/nifi:1.25.0
     container_name: fraud-nifi
@@ -80,15 +78,17 @@ services:
       - nifi_database:/opt/nifi/nifi-current/database_repository
       - nifi_flowfile:/opt/nifi/nifi-current/flowfile_repository
       - nifi_content:/opt/nifi/nifi-current/content_repository
+      - nifi_driver:/opt/nifi/nifi-current/lib
+      - ../ingestion/drivers/ojdbc11.jar:/opt/nifi/nifi-current/lib/ojdbc11.jar
 
     networks:
       - fraud-network
 
     mem_limit: 2g
 
-# ================================
-# SPARK MASTER
-# ================================
+  # ================================
+  # SPARK MASTER
+  # ================================
   spark-master:
     image: apache/spark:3.5.1
     container_name: fraud-spark-master
@@ -106,9 +106,9 @@ services:
 
     mem_limit: 1g
 
-# ================================
-# SPARK WORKER 1
-# ================================
+  # ================================
+  # SPARK WORKER 1
+  # ================================
   spark-worker-1:
     image: apache/spark:3.5.1
     container_name: fraud-spark-worker-1
@@ -129,9 +129,9 @@ services:
 
     mem_limit: 1g
 
-# ================================
-# SPARK WORKER 2
-# ================================
+  # ================================
+  # SPARK WORKER 2
+  # ================================
   spark-worker-2:
     image: apache/spark:3.5.1
     container_name: fraud-spark-worker-2
@@ -152,9 +152,9 @@ services:
 
     mem_limit: 1g
 
-# ================================
-# HADOOP NAMENODE
-# ================================
+  # ================================
+  # HADOOP NAMENODE
+  # ================================
   hadoop-namenode:
     image: apache/hadoop:3.3.6
     container_name: fraud-namenode
@@ -184,9 +184,9 @@ services:
 
     mem_limit: 1g
 
-# ================================
-# HADOOP DATANODE
-# ================================
+  # ================================
+  # HADOOP DATANODE
+  # ================================
   hadoop-datanode-1:
     image: apache/hadoop:3.3.6
     container_name: fraud-datanode-1
@@ -198,7 +198,7 @@ services:
       mkdir -p /hadoop/dfs/data &&
       hdfs datanode
       "
-      
+
     depends_on:
       - hadoop-namenode
 
@@ -222,7 +222,7 @@ services:
       mkdir -p /hadoop/dfs/data &&
       hdfs datanode
       "
-      
+
     depends_on:
       - hadoop-namenode
 
@@ -235,9 +235,9 @@ services:
 
     mem_limit: 1g
 
-# ================================
-# YARN RESOURCE MANAGER
-# ================================
+  # ================================
+  # YARN RESOURCE MANAGER
+  # ================================
   resourcemanager:
     image: apache/hadoop:3.3.6
     container_name: fraud-resourcemanager
@@ -258,9 +258,9 @@ services:
 
     mem_limit: 1g
 
-# ================================
-# YARN NODE MANAGER
-# ================================
+  # ================================
+  # YARN NODE MANAGER
+  # ================================
   nodemanager:
     image: apache/hadoop:3.3.6
     container_name: fraud-nodemanager
@@ -271,7 +271,6 @@ services:
 
     volumes:
       - ./hadoop-config:/opt/hadoop/etc/hadoop
-
 
     depends_on:
       - resourcemanager
@@ -303,6 +302,7 @@ volumes:
   oracle_data:
   kafka_data:
   nifi_state:
+  nifi_driver:
   nifi_database:
   nifi_flowfile:
   nifi_content:
