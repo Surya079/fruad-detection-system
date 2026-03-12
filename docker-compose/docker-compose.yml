@@ -78,7 +78,6 @@ services:
       - nifi_database:/opt/nifi/nifi-current/database_repository
       - nifi_flowfile:/opt/nifi/nifi-current/flowfile_repository
       - nifi_content:/opt/nifi/nifi-current/content_repository
-      - nifi_driver:/opt/nifi/nifi-current/lib
       - ../ingestion/drivers/ojdbc11.jar:/opt/nifi/nifi-current/lib/ojdbc11.jar
 
     networks:
@@ -302,7 +301,6 @@ volumes:
   oracle_data:
   kafka_data:
   nifi_state:
-  nifi_driver:
   nifi_database:
   nifi_flowfile:
   nifi_content:

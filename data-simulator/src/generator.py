@@ -44,7 +44,7 @@ def run_generator():
 
             batch.clear()
 
-        time.sleep(0.1)
+        time.sleep(60)
 
 
 if __name__ == "__main__":

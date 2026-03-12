@@ -185,7 +185,28 @@
 
 # 🥇 STAGE 4 INGESTION LAYER 
 
+    ```
+          Oracle
+            ↓
+        QueryDatabaseTableRecord
+            ↓
+        PublishKafkaRecord
+            ↓
+        Kafka topic: transactions.raw
 
+    ```
+
+    * Our pipeline:
+    
+        QueryDatabaseTableRecord  -- > 
+                ↓
+        ConvertRecord
+                ↓
+        ValidateRecord
+                ↓
+        PublishKafkaRecord
+
+    
 # 🥇 STAGE 5
 # 🥇 STAGE 6
 # 🥇 STAGE 7
